@@ -1,0 +1,1868 @@
+
+
+========== FILE: D:\parkirku\resources\views\petugas\dashboard.blade.php ==========
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Petugas | E-PARKIR XII IND</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+            :root {
+        --bg: #020604;
+        --sidebar: rgba(0, 8, 4, .98);
+        --card: rgba(0, 25, 12, .82);
+        --border: rgba(0, 255, 102, .65);
+        --green: #00ff66;
+        --light: #caffd9;
+        --text: #edfff2;
+        --muted: #a5cbb2;
+    }
+
+        body {
+        min-height: 100vh;
+        background:
+            radial-gradient(circle at 75% 15%, rgba(0, 255, 102, .18), transparent 38%),
+            #020604;
+        color: var(--text);
+        font-family: 'Poppins', sans-serif;
+    }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 255px;
+            min-height: 100vh;
+            padding: 28px 18px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            box-shadow: 5px 0 25px rgba(0, 255, 102, .06);
+            flex-shrink: 0;
+        }
+
+        .brand {
+            padding: 8px 12px 28px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand h2 {
+            color: var(--green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px rgba(0, 255, 102, .55);
+        }
+
+        .brand p {
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+        .menu-title {
+            color: #668875;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin: 22px 12px 12px;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 14px;
+            margin-bottom: 8px;
+            border: 1px solid transparent;
+            border-radius: 9px;
+            color: #c6e6d1;
+            text-decoration: none;
+            font-size: 13px;
+            transition: .25s;
+        }
+
+        .menu:hover,
+        .menu.active {
+            background: rgba(0, 255, 102, .12);
+            border-color: rgba(0, 255, 102, .55);
+            color: var(--green);
+            box-shadow: 0 0 13px rgba(0, 255, 102, .09);
+        }
+
+        .logout {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: 1px solid transparent;
+            color: #ff9999;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .logout:hover {
+            background: rgba(255, 50, 50, .10);
+            border-color: rgba(255, 80, 80, .35);
+        }
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            padding: 35px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .topbar h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 23px;
+            color: var(--light);
+            text-shadow: 0 0 12px rgba(0, 255, 102, .20);
+        }
+
+        .topbar p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .user-box {
+            padding: 11px 17px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(0, 255, 102, .06);
+            color: var(--light);
+            font-size: 12px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 23px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .20);
+            transition: .25s;
+        }
+
+        .card:hover {
+            border-color: var(--green);
+            box-shadow: 0 0 18px rgba(0, 255, 102, .13);
+            transform: translateY(-3px);
+        }
+
+        .card-label {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .card-value {
+            color: var(--green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 25px;
+            font-weight: 700;
+            margin-top: 14px;
+            text-shadow: 0 0 12px rgba(0, 255, 102, .25);
+        }
+
+        .card-icon {
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .welcome {
+            margin-top: 25px;
+            padding: 28px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 0 18px rgba(0, 255, 102, .05);
+        }
+
+        .welcome h2 {
+            color: var(--light);
+            font-size: 19px;
+            margin-bottom: 12px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .highlight {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 22px;
+        }
+
+        .action {
+            display: block;
+            padding: 23px;
+            text-decoration: none;
+            color: var(--text);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            transition: .25s;
+        }
+
+        .action:hover {
+            border-color: var(--green);
+            box-shadow: 0 0 18px rgba(0, 255, 102, .14);
+            transform: translateY(-3px);
+        }
+
+        .action h3 {
+            color: var(--light);
+            font-size: 15px;
+            margin: 10px 0;
+        }
+
+        .action p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @media(max-width: 1100px) {
+            .cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media(max-width: 700px) {
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+            }
+
+            .main {
+                padding: 22px 16px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .cards,
+            .quick-actions {
+                grid-template-columns: 1fr;
+                    }
+                }.card,
+        .welcome,
+        .action {
+            box-shadow:
+                0 0 12px rgba(0, 255, 102, .12),
+                inset 0 0 12px rgba(0, 255, 102, .04);
+        }
+
+        .brand h2,
+        .card-value,
+        .highlight {
+            text-shadow: 0 0 12px #00ff66;
+        }
+
+        .menu.active {
+            background: rgba(0, 255, 102, .18);
+            border-color: #00ff66;
+            box-shadow: 0 0 15px rgba(0, 255, 102, .3);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <h2>MAHZAFY-EE</h2>
+            <p>PARKIR XII IND</p>
+        </div>
+
+        <div class="menu-title">MENU UTAMA</div>
+
+        <a href="{{ route('petugas.dashboard') }}" class="menu active">
+            <span>▣</span> Dashboard
+        </a>
+
+        <a href="{{ route('petugas.transaksi.index') }}" class="menu">
+            <span>▤</span> Transaksi Parkir
+        </a>
+
+        <a href="{{ route('petugas.transaksi.create') }}" class="menu">
+            <span>＋</span> Parkir Masuk
+        </a>
+
+        <div class="menu-title">AKUN</div>
+
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="menu logout">
+                <span>↪</span> Logout
+            </button>
+        </form>
+
+    </aside>
+
+    <main class="main">
+
+        <div class="topbar">
+            <div>
+                <h1>Dashboard Petugas</h1>
+                <p>Selamat datang di E-PARKIR XII IND</p>
+            </div>
+
+            <div class="user-box">
+                ◉ {{ auth()->user()->name ?? 'Petugas' }}
+            </div>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="card-icon">🚗</div>
+                <div class="card-label">Total Kendaraan</div>
+                <div class="card-value">
+                    {{ $totalKendaraan ?? 0 }}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🎫</div>
+                <div class="card-label">Total Transaksi</div>
+                <div class="card-value">
+                    {{ $totalTransaksi ?? 0 }}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🅿️</div>
+                <div class="card-label">Parkir Aktif</div>
+                <div class="card-value">
+                    {{ $parkirAktif ?? 0 }}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">💰</div>
+                <div class="card-label">Total Pendapatan</div>
+                <div class="card-value" style="font-size:19px;">
+                    Rp {{ number_format($totalPendapatan ?? 0, 0, ',', '.') }}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="welcome">
+            <h2>
+                Halo, {{ auth()->user()->name ?? 'Petugas' }} 👋
+            </h2>
+
+            <p>
+                Kamu login sebagai
+                <span class="highlight">PETUGAS</span>.
+                Gunakan menu di sebelah kiri untuk mencatat kendaraan
+                masuk, memproses kendaraan keluar, dan mencetak struk.
+            </p>
+        </div>
+
+        <div class="quick-actions">
+
+            <a href="{{ route('petugas.transaksi.create') }}" class="action">
+                <div class="card-icon">🚘</div>
+                <h3>Catat Parkir Masuk</h3>
+                <p>Masukkan kendaraan yang baru masuk area parkir.</p>
+            </a>
+
+            <a href="{{ route('petugas.transaksi.index') }}" class="action">
+                <div class="card-icon">📋</div>
+                <h3>Lihat Transaksi</h3>
+                <p>Lihat daftar kendaraan dan proses kendaraan keluar.</p>
+            </a>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
+
+
+
+========== FILE: D:\parkirku\resources\views\petugas\struk.blade.php ==========
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Struk Parkir - ParkirKu</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            background: #0b1710;
+            color: #e5f5e9;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .btn-back {
+            background: #1d3524;
+            color: #d7f5df;
+        }
+
+        .btn-print {
+            background: #22c55e;
+            color: #06240f;
+        }
+
+        .struk {
+            background: white;
+            color: #111;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 1px dashed #777;
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .header p {
+            margin: 6px 0 0;
+            color: #555;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 7px 0;
+        }
+
+        .label {
+            color: #666;
+        }
+
+        .value {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .total {
+            border-top: 1px dashed #777;
+            margin-top: 15px;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            border-top: 1px dashed #777;
+            margin-top: 20px;
+            padding-top: 15px;
+            color: #555;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .actions {
+                display: none;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .struk {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="actions">
+        <a href="{{ route('petugas.transaksi.index') }}" class="btn btn-back">
+            ← Kembali
+        </a>
+
+        <button onclick="window.print()" class="btn btn-print">
+            🖨 Cetak Struk
+        </button>
+    </div>
+
+    <div class="struk">
+
+        <div class="header">
+            <h1>PARKIRKU</h1>
+            <p>Struk Parkir Kendaraan</p>
+        </div>
+
+        <div class="row">
+            <span class="label">Kode Tiket</span>
+            <span class="value">
+                {{ $transaksi->kode_tiket }}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Plat Nomor</span>
+            <span class="value">
+                {{ $transaksi->kendaraan->plat_nomor ?? '-' }}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Jenis</span>
+            <span class="value">
+                {{ ucfirst($transaksi->kendaraan->jenis ?? '-') }}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Pemilik</span>
+            <span class="value">
+                {{ $transaksi->kendaraan->pemilik ?? '-' }}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Slot</span>
+            <span class="value">
+                {{ $transaksi->slot ?? '-' }}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Jam Masuk</span>
+            <span class="value">
+                {{ $transaksi->jam_masuk?->format('d-m-Y H:i') ?? '-' }}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Jam Keluar</span>
+            <span class="value">
+                {{ $transaksi->jam_keluar?->format('d-m-Y H:i') ?? '-' }}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label">Durasi</span>
+            <span class="value">
+                {{ $transaksi->durasi ?? 0 }} jam
+            </span>
+        </div>
+
+        <div class="total">
+            <span>TOTAL</span>
+
+            <span>
+                Rp {{ number_format($transaksi->total_bayar ?? 0, 0, ',', '.') }}
+            </span>
+        </div>
+
+        <div class="footer">
+            Terima kasih telah menggunakan ParkirKu
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
+
+========== FILE: D:\parkirku\resources\views\petugas\transaksi\create.blade.php ==========
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Transaksi Parkir - E-PARKIR XII IND</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-[#06100b] text-white">
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-green-500/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <header class="relative border-b border-emerald-900/40 bg-[#08150e]/95">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold text-emerald-400">
+                    E-PARKIR XII IND
+                </h1>
+                <p class="text-sm text-gray-400 mt-1">
+                    Petugas • Tambah Transaksi
+                </p>
+            </div>
+
+            <a href="{{ route('petugas.transaksi.index') }}"
+               class="px-4 py-2 rounded-lg border border-emerald-800 text-emerald-300 hover:bg-emerald-900/40">
+                ← Kembali
+            </a>
+        </div>
+    </header>
+
+    <main class="relative max-w-4xl mx-auto px-6 py-10">
+
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold">Tambah Transaksi Parkir</h2>
+            <p class="text-gray-400 mt-2">
+                Masukkan kendaraan dan pilih area parkir.
+            </p>
+        </div>
+
+        @if ($errors->any())
+            <div class="mb-6 rounded-xl border border-red-900/50 bg-red-950/40 p-5">
+                <div class="font-semibold text-red-400 mb-2">
+                    Terdapat kesalahan:
+                </div>
+                <ul class="list-disc list-inside text-sm text-red-300 space-y-1">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="mb-6 rounded-xl border border-red-900/50 bg-red-950/40 p-4 text-red-300">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="mb-6 rounded-xl border border-emerald-900/50 bg-emerald-950/40 p-4 text-emerald-300">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <div class="rounded-2xl border border-emerald-900/40 bg-[#0b1912]/95 overflow-hidden">
+
+            <div class="px-6 py-5 border-b border-emerald-900/40">
+                <h3 class="text-lg font-semibold text-emerald-300">
+                    Data Parkir
+                </h3>
+                <p class="text-sm text-gray-500 mt-1">
+                    Lengkapi kendaraan, area, slot, dan waktu masuk.
+                </p>
+            </div>
+
+            <form action="{{ route('petugas.transaksi.store') }}"
+                  method="POST"
+                  class="p-6 space-y-6">
+
+                @csrf
+
+                <!-- Kendaraan -->
+                <div>
+                    <label for="kendaraan_id"
+                           class="block text-sm font-medium text-gray-300 mb-2">
+                        Kendaraan
+                    </label>
+
+                    <select name="kendaraan_id"
+                            id="kendaraan_id"
+                            required
+                            class="w-full rounded-xl border border-emerald-900/50 bg-[#06100b] px-4 py-3 text-white outline-none focus:border-emerald-500">
+
+                        <option value="">-- Pilih Kendaraan --</option>
+
+                        @forelse ($kendaraans as $kendaraan)
+                            <option value="{{ $kendaraan->id }}"
+                                {{ old('kendaraan_id') == $kendaraan->id ? 'selected' : '' }}>
+                                {{ $kendaraan->plat_nomor }} - {{ $kendaraan->jenis }}
+                            </option>
+                        @empty
+                            <option value="" disabled>
+                                Belum ada data kendaraan
+                            </option>
+                        @endforelse
+                    </select>
+
+                    @error('kendaraan_id')
+                        <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Area Parkir -->
+                <div>
+                    <label for="area_parkir_id"
+                           class="block text-sm font-medium text-gray-300 mb-2">
+                        Area Parkir
+                    </label>
+
+                    <select name="area_parkir_id"
+                            id="area_parkir_id"
+                            required
+                            class="w-full rounded-xl border border-emerald-900/50 bg-[#06100b] px-4 py-3 text-white outline-none focus:border-emerald-500">
+
+                        <option value="">-- Pilih Area Parkir --</option>
+
+                        @forelse ($areas as $area)
+                            <option value="{{ $area->id }}"
+                                {{ old('area_parkir_id') == $area->id ? 'selected' : '' }}
+                                {{ $area->terisi >= $area->kapasitas ? 'disabled' : '' }}>
+
+                                {{ $area->nama_area }}
+                                — Terisi {{ $area->terisi }}/{{ $area->kapasitas }}
+                                — Kosong {{ max(0, $area->kapasitas - $area->terisi) }}
+                                {{ $area->terisi >= $area->kapasitas ? '(PENUH)' : '' }}
+
+                            </option>
+                        @empty
+                            <option value="" disabled>
+                                Belum ada area parkir aktif
+                            </option>
+                        @endforelse
+                    </select>
+
+                    @error('area_parkir_id')
+                        <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+
+                    <p class="mt-2 text-xs text-gray-500">
+                        Pilih area yang masih memiliki slot kosong.
+                    </p>
+                </div>
+
+                <!-- Slot -->
+                <div>
+                    <label for="slot"
+                           class="block text-sm font-medium text-gray-300 mb-2">
+                        Slot Parkir
+                    </label>
+
+                    <input type="text"
+                           name="slot"
+                           id="slot"
+                           value="{{ old('slot') }}"
+                           placeholder="Contoh: A01"
+                           required
+                           maxlength="50"
+                           class="w-full rounded-xl border border-emerald-900/50 bg-[#06100b] px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-emerald-500">
+
+                    @error('slot')
+                        <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Jam Masuk -->
+                <div>
+                    <label for="jam_masuk"
+                           class="block text-sm font-medium text-gray-300 mb-2">
+                        Jam Masuk
+                    </label>
+
+                    <input type="datetime-local"
+                           name="jam_masuk"
+                           id="jam_masuk"
+                           value="{{ old('jam_masuk', now()->format('Y-m-d\TH:i')) }}"
+                           required
+                           class="w-full rounded-xl border border-emerald-900/50 bg-[#06100b] px-4 py-3 text-white outline-none focus:border-emerald-500">
+
+                    @error('jam_masuk')
+                        <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Informasi -->
+                <div class="rounded-xl border border-emerald-900/30 bg-emerald-950/20 p-4">
+                    <p class="text-sm text-gray-400">
+                        <span class="text-emerald-400 font-semibold">
+                            Informasi:
+                        </span>
+                        Jumlah slot terisi akan bertambah otomatis ketika transaksi
+                        berhasil disimpan dan berkurang ketika kendaraan keluar.
+                    </p>
+                </div>
+
+                <!-- Tombol -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+
+                    <a href="{{ route('petugas.transaksi.index') }}"
+                       class="flex-1 text-center px-5 py-3 rounded-xl border border-gray-700 text-gray-300 hover:bg-gray-800/50">
+                        Batal
+                    </a>
+
+                    <button type="submit"
+                            class="flex-1 px-5 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-500 shadow-lg">
+                        Simpan Transaksi
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
+
+
+========== FILE: D:\parkirku\resources\views\petugas\transaksi\index.blade.php ==========
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaksi Parkir | MAHZAFY-EE</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg: #020604;
+            --sidebar: #000c06;
+            --card: rgba(0, 25, 12, .82);
+            --green: #00ff66;
+            --light: #caffd9;
+            --text: #edfff2;
+            --muted: #9bb7a4;
+            --border: rgba(0, 255, 102, .4);
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 75% 10%, rgba(0,255,102,.13), transparent 35%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            padding: 25px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 0 20px rgba(0,255,102,.07);
+        }
+
+        .brand {
+            padding: 5px 12px 28px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        .brand h2 {
+            color: var(--green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 19px;
+            text-shadow: 0 0 12px rgba(0,255,102,.6);
+        }
+
+        .brand p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .menu-title {
+            color: #668875;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding: 0 12px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #c6e6d1;
+            padding: 13px 14px;
+            border-radius: 10px;
+            display: flex;
+            gap: 11px;
+            transition: .25s;
+            border: 1px solid transparent;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(0,255,102,.14);
+            color: var(--green);
+            border-color: var(--border);
+            box-shadow: 0 0 14px rgba(0,255,102,.17);
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        .logout button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,80,80,.4);
+            background: rgba(255,50,50,.07);
+            color: #ffaaaa;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .logout button:hover {
+            background: rgba(255,50,50,.15);
+            box-shadow: 0 0 12px rgba(255,50,50,.15);
+        }
+
+        .content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .title h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: var(--light);
+            text-shadow: 0 0 12px rgba(0,255,102,.2);
+            margin-bottom: 7px;
+        }
+
+        .title p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .user {
+            background: rgba(0,255,102,.07);
+            border: 1px solid var(--border);
+            padding: 10px 15px;
+            border-radius: 12px;
+            color: var(--light);
+            box-shadow: 0 0 12px rgba(0,255,102,.08);
+        }
+
+        .user strong {
+            color: var(--green);
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 24px;
+            overflow-x: auto;
+            box-shadow: 0 0 18px rgba(0,255,102,.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h3 {
+            font-size: 17px;
+            color: var(--light);
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            border: none;
+            border-radius: 9px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: .25s;
+        }
+
+        .btn-green {
+            background: rgba(0,255,102,.16);
+            border: 1px solid var(--green);
+            color: var(--green);
+            box-shadow: 0 0 10px rgba(0,255,102,.15);
+        }
+
+        .btn-green:hover {
+            background: var(--green);
+            color: #001b0b;
+            box-shadow: 0 0 18px rgba(0,255,102,.45);
+        }
+
+        .btn-blue {
+            background: rgba(0,255,102,.13);
+            border: 1px solid rgba(0,255,102,.45);
+            color: var(--light);
+        }
+
+        .btn-blue:hover {
+            background: var(--green);
+            color: #001b0b;
+            box-shadow: 0 0 12px rgba(0,255,102,.3);
+        }
+
+        .btn-red {
+            background: #7f1d1d;
+            color: #fecaca;
+        }
+
+        .alert {
+            padding: 13px 16px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+        }
+
+        .alert-success {
+            background: rgba(0,255,102,.08);
+            border: 1px solid var(--border);
+            color: var(--light);
+        }
+
+        .alert-error {
+            background: rgba(239,68,68,.1);
+            border: 1px solid rgba(239,68,68,.3);
+            color: #ffaaaa;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th {
+            text-align: left;
+            padding: 14px;
+            color: var(--green);
+            font-size: 11px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: .5px;
+        }
+
+        td {
+            padding: 15px 14px;
+            border-bottom: 1px solid rgba(0,255,102,.1);
+            color: #d4f2de;
+            font-size: 12px;
+        }
+
+        td strong {
+            color: var(--light);
+        }
+
+        tr:hover td {
+            background: rgba(0,255,102,.055);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+        }
+
+        .badge-masuk {
+            background: rgba(0,255,102,.13);
+            color: var(--green);
+            border: 1px solid rgba(0,255,102,.3);
+        }
+
+        .badge-keluar {
+            background: rgba(59,130,246,.12);
+            color: #93c5fd;
+            border: 1px solid rgba(59,130,246,.25);
+        }
+
+        .empty {
+            text-align: center;
+            padding: 45px 20px;
+            color: var(--muted);
+        }
+
+        .actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        @media(max-width:800px) {
+            .sidebar {
+                width: 210px;
+            }
+
+            .content {
+                margin-left: 210px;
+                width: calc(100% - 210px);
+                padding: 20px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media(max-width:600px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .layout {
+                display: block;
+            }
+
+            .content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 25px;
+            }
+
+            .card-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>🚗 MAHZAFY-EE</h2>
+            <p>PARKIR XII IND</p>
+        </div>
+
+        <div class="menu-title">Menu Utama</div>
+
+        <nav class="menu">
+            <a href="{{ route('petugas.dashboard') }}">
+                📊 Dashboard
+            </a>
+
+            <a href="{{ route('petugas.transaksi.index') }}" class="active">
+                🅿️ Transaksi Parkir
+            </a>
+
+            <a href="{{ route('petugas.transaksi.create') }}">
+                ➕ Parkir Masuk
+            </a>
+        </nav>
+
+        <div class="logout">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit">
+                    🚪 Keluar
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <main class="content">
+
+        <div class="topbar">
+            <div class="title">
+                <h1>Transaksi Parkir</h1>
+                <p>Kelola kendaraan masuk dan keluar</p>
+            </div>
+
+            <div class="user">
+                👤
+                <strong>{{ auth()->user()->name }}</strong>
+            </div>
+        </div>
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-error">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-error">
+                <ul style="padding-left:20px;">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Data Transaksi</h3>
+
+                <a href="{{ route('petugas.transaksi.create') }}"
+                   class="btn btn-green">
+                    + Parkir Masuk
+                </a>
+            </div>
+
+            @if($parkirs->count() > 0)
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode Tiket</th>
+                            <th>Plat Nomor</th>
+                            <th>Jenis</th>
+                            <th>Slot</th>
+                            <th>Jam Masuk</th>
+                            <th>Jam Keluar</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach($parkirs as $transaksi)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+
+                                <td>
+                                    <strong>{{ $transaksi->kode_tiket }}</strong>
+                                </td>
+
+                                <td>{{ $transaksi->plat_nomor ?? '-' }}</td>
+                                <td>{{ $transaksi->jenis ?? '-' }}</td>
+                                <td>{{ $transaksi->slot ?? '-' }}</td>
+                                <td>{{ $transaksi->jam_masuk ?? '-' }}</td>
+                                <td>{{ $transaksi->jam_keluar ?? '-' }}</td>
+
+                                <td>
+                                    Rp {{ number_format($transaksi->total_bayar ?? 0, 0, ',', '.') }}
+                                </td>
+
+                                <td>
+                                    @if($transaksi->status === 'masuk')
+                                        <span class="badge badge-masuk">
+                                            MASUK
+                                        </span>
+                                    @else
+                                        <span class="badge badge-keluar">
+                                            KELUAR
+                                        </span>
+                                    @endif
+                                </td>
+
+                                <td>
+                                    <div class="actions">
+                                        <a href="{{ route('petugas.transaksi.show', $transaksi->id) }}"
+                                           class="btn btn-blue">
+                                            Detail
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+            @else
+                <div class="empty">
+                    <div style="font-size:40px; margin-bottom:12px;">
+                        🅿️
+                    </div>
+
+                    <p>Belum ada transaksi parkir.</p>
+
+                    <br>
+
+                    <a href="{{ route('petugas.transaksi.create') }}"
+                       class="btn btn-green">
+                        + Buat Transaksi Pertama
+                    </a>
+                </div>
+            @endif
+        </div>
+
+    </main>
+</div>
+</body>
+</html>
+
+
+
+========== FILE: D:\parkirku\resources\views\petugas\transaksi\show.blade.php ==========
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Detail Transaksi - ParkirKu
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #06100b;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #789181;
+        }
+
+        .card {
+            background: #0b1912;
+            border: 1px solid rgba(34,197,94,.15);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .ticket {
+            text-align: center;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .ticket h2 {
+            color: #4ade80;
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .ticket p {
+            color: #86a98f;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .item {
+            background: #08150d;
+            border: 1px solid rgba(34,197,94,.1);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .label {
+            color: #71907d;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .value {
+            color: #e2e8e4;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .total {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(34,197,94,.08);
+            border: 1px solid rgba(34,197,94,.15);
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total span:first-child {
+            color: #86a98f;
+        }
+
+        .total strong {
+            color: #4ade80;
+            font-size: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .masuk {
+            background: rgba(34,197,94,.12);
+            color: #4ade80;
+        }
+
+        .keluar {
+            background: rgba(59,130,246,.12);
+            color: #93c5fd;
+        }
+
+        .actions {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            border: none;
+            border-radius: 9px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-green {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-blue {
+            background: #166534;
+            color: white;
+        }
+
+        .btn-gray {
+            background: #1f2937;
+            color: #d1d5db;
+        }
+
+        @media(max-width:650px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .total {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>
+            Detail Transaksi
+        </h1>
+
+        <p>
+            Informasi transaksi parkir
+        </p>
+
+    </div>
+
+
+    @if(session('success'))
+
+        <div
+            style="
+                background:rgba(34,197,94,.1);
+                border:1px solid rgba(34,197,94,.2);
+                color:#86efac;
+                padding:13px 16px;
+                border-radius:10px;
+                margin-bottom:18px;
+            "
+        >
+            {{ session('success') }}
+        </div>
+
+    @endif
+
+
+    @if(session('error'))
+
+        <div
+            style="
+                background:rgba(239,68,68,.1);
+                border:1px solid rgba(239,68,68,.2);
+                color:#fca5a5;
+                padding:13px 16px;
+                border-radius:10px;
+                margin-bottom:18px;
+            "
+        >
+            {{ session('error') }}
+        </div>
+
+    @endif
+
+
+    <div class="card">
+
+        <div class="ticket">
+
+            <h2>
+                {{ $transaksi->kode_tiket }}
+            </h2>
+
+            <p>
+                Tiket Parkir
+            </p>
+
+        </div>
+
+
+        <div class="grid">
+
+            <div class="item">
+
+                <div class="label">
+                    Plat Nomor
+                </div>
+
+                <div class="value">
+                    {{ $transaksi->plat_nomor ?? '-' }}
+                </div>
+
+            </div>
+
+
+            <div class="item">
+
+                <div class="label">
+                    Jenis Kendaraan
+                </div>
+
+                <div class="value">
+                    {{ $transaksi->jenis ?? '-' }}
+                </div>
+
+            </div>
+
+
+            <div class="item">
+
+                <div class="label">
+                    Slot Parkir
+                </div>
+
+                <div class="value">
+                    {{ $transaksi->slot ?? '-' }}
+                </div>
+
+            </div>
+
+
+            <div class="item">
+
+                <div class="label">
+                    Status
+                </div>
+
+                <div class="value">
+
+                    @if($transaksi->status === 'masuk')
+
+                        <span class="badge masuk">
+                            MASIH PARKIR
+                        </span>
+
+                    @else
+
+                        <span class="badge keluar">
+                            SUDAH KELUAR
+                        </span>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+
+            <div class="item">
+
+                <div class="label">
+                    Jam Masuk
+                </div>
+
+                <div class="value">
+                    {{ $transaksi->jam_masuk ?? '-' }}
+                </div>
+
+            </div>
+
+
+            <div class="item">
+
+                <div class="label">
+                    Jam Keluar
+                </div>
+
+                <div class="value">
+                    {{ $transaksi->jam_keluar ?? '-' }}
+                </div>
+
+            </div>
+
+
+            <div class="item">
+
+                <div class="label">
+                    Durasi
+                </div>
+
+                <div class="value">
+                    {{ $transaksi->durasi ?? 0 }} jam
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="total">
+
+            <span>
+                Total Pembayaran
+            </span>
+
+            <strong>
+                Rp
+                {{ number_format(
+                    $transaksi->total_bayar ?? 0,
+                    0,
+                    ',',
+                    '.'
+                ) }}
+            </strong>
+
+        </div>
+
+
+        <div class="actions">
+
+            <a
+                href="{{ route('petugas.transaksi.index') }}"
+                class="btn btn-gray"
+            >
+                ← Kembali
+            </a>
+
+
+            @if($transaksi->status === 'masuk')
+
+                <form
+                    method="POST"
+                    action="{{ route(
+                        'petugas.transaksi.update',
+                        $transaksi->id
+                    ) }}"
+                >
+
+                    @csrf
+
+                    @method('PUT')
+
+                    <button
+                        type="submit"
+                        class="btn btn-green"
+                    >
+                        🚗 Proses Kendaraan Keluar
+                    </button>
+
+                </form>
+
+            @else
+
+                <a
+                    href="{{ route(
+                        'petugas.struk',
+                        $transaksi->id
+                    ) }}"
+                    class="btn btn-blue"
+                >
+                    🧾 Cetak Struk
+                </a>
+
+            @endif
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Admin - Sistem Parkir</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #06100b;
+            color: white;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #08150e;
+            border-right: 1px solid #183d28;
+            padding: 25px 18px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #22c55e;
+            margin-bottom: 35px;
+        }
+
+        .menu-title {
+            color: #6b8b77;
+            font-size: 12px;
+            margin: 20px 10px 10px;
+            text-transform: uppercase;
+        }
+
+                    .menu {
+                display: block;
+                width: 100%;
+                padding: 12px 14px;
+                margin-bottom: 6px;
+                border-radius: 10px;
+                color: #b9c9bf;
+                text-decoration: none;
+                background: transparent;
+                border: none;
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+                cursor: pointer;
+                text-align: left;
+            }
+
+            .menu:hover,
+            .menu.active {
+                background: #12351f;
+                color: #4ade80;
+            }
+
+            .logout {
+                color: #f87171 !important;
+            }
+
+            .logout:hover {
+                background: #3b1515 !important;
+                color: #fca5a5 !important;
+            }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .title p {
+            color: #789082;
+        }
+
+        .user {
+            background: #0b1912;
+            border: 1px solid #183d28;
+            padding: 10px 16px;
+            border-radius: 10px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: #0b1912;
+            border: 1px solid #183d28;
+            border-radius: 16px;
+            padding: 22px;
+        }
+
+        .card-title {
+            color: #789082;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .card-value {
+            font-size: 30px;
+            font-weight: bold;
+            color: #4ade80;
+        }
+
+        .welcome {
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 16px;
+            background: #0b1912;
+            border: 1px solid #183d28;
+        }
+
+        .welcome h2 {
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #9db1a4;
+            line-height: 1.6;
+        }
+
+        .logout {
+            width: 100%;
+            border: 0;
+            cursor: pointer;
+            text-align: left;
+            font: inherit;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 210px;
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            🚗 PARKIRKU
+        </div>
+
+        <div class="menu-title">
+            Menu Utama
+        </div>
+
+        <a href="{{ route('admin.dashboard') }}"
+           class="menu active">
+            🏠 Dashboard
+        </a>
+
+        <a href="{{ route('admin.users.index') }}"
+           class="menu">
+            👥 Pengguna
+        </a>
+
+        <a href="{{ route('admin.kendaraan.index') }}"
+           class="menu">
+            🚗 Kendaraan
+        </a>
+
+        <a href="{{ route('admin.tarif.index') }}"
+           class="menu">
+            💰 Tarif Parkir
+        </a>
+
+        <a href="{{ route('admin.area.index') }}"
+           class="menu">
+            🅿️ Area Parkir
+        </a>
+
+        <a href="{{ route('admin.log-aktifitas') }}"
+           class="menu">
+            📋 Log Aktifitas
+        </a>
+
+        <div class="menu-title">
+            Akun
+        </div>
+
+        <form method="POST" action="{{ route('logout') }}">
+    @csrf
+
+    <button type="submit" class="menu logout">
+        🚪 Logout
+    </button>
+</form>
+    </aside>
+
+
+    <!-- CONTENT -->
+    <main class="content">
+
+        <div class="topbar">
+
+            <div class="title">
+                <h1>Dashboard Admin</h1>
+                <p>Selamat datang di Sistem Parkir</p>
+            </div>
+
+            <div class="user">
+                👤 {{ auth()->user()->name }}
+            </div>
+
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="card-title">
+                    Total Kendaraan
+                </div>
+
+                <div class="card-value">
+                    -
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-title">
+                    Parkir Aktif
+                </div>
+
+                <div class="card-value">
+                    -
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-title">
+                    Tarif Parkir
+                </div>
+
+                <div class="card-value">
+                    -
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-title">
+                    Status Sistem
+                </div>
+
+                <div class="card-value">
+                    OK
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="welcome">
+
+            <h2>
+                Halo, {{ auth()->user()->name }} 👋
+            </h2>
+
+            <p>
+                Kamu login sebagai
+                <strong style="color:#4ade80;">
+                    {{ strtoupper(auth()->user()->role) }}
+                </strong>.
+                Gunakan menu di sebelah kiri untuk mengelola
+                pengguna, kendaraan, tarif parkir, area parkir,
+                dan aktivitas sistem.
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
